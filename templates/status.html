@@ -1,0 +1,19 @@
+<doctype html>
+<title>Accelerometer Status - Python Flask MySQL CRUD</title>
+
+<p><a href="{{ url_for('.add_status_view') }}"> Add Status </a></p>
+<p><a href="{{ url_for('.index') }}"> Try </a></p>
+
+<p>
+ {% with messages = get_flashed_messages() %}
+   {% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+   {% endif %}
+ {% endwith %}
+</p>
+
+{{ table }}

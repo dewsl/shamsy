@@ -1,0 +1,64 @@
+<doctype html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">// <![CDATA[
+			function loading(){
+				$("#loading").show();
+				$("#content").hide();       
+			}
+	// ]]>
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Add icon library -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+	<title>Edit Status - Python Flask MySQL CRUD</title>
+	
+	<a href="{{ url_for('.users') }}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+	<a href="{{ url_for('.loggers_view') }}"><button class="btn"><i class="fa fa-flag"></i> Loggers</button></a>
+	<a href="{{ url_for('.view_status') }}"><button class="btn"><i class="fa fa-bars"></i> Status</button></a>
+	<a href="{{ url_for('.add_status_view') }}"><button class="btn"><i class="fa fa-plus"></i> Add Status</button></a>
+	<a href="{{ url_for('.update_in_use_view') }}"><button class="btn"><i class="fa fa-toggle-on"></i> Switch accel</button></a>
+	
+	<h1>Edit Status</h1>
+	<form method="post" action="/update">
+		<dl>
+	  <h2>Accel ID</h2>
+	  <p>
+	   <input name="input_accel_id" value="{{ row['accel_id'] }}" type="text" placeholder="accel_id" autocomplete="off" required>
+	  </p>
+	  <h2>Date Identified</h2>
+	  <p>
+	   <input name="input_date_identified" value="{{ row['date_identified'] }}" type="date" placeholder="date_identified" autocomplete="off" required>
+	  </p>
+	  <h2>Status</h2>
+	  <p>
+	  <span class="input-group-addon"></span>
+		<select name="input_status" class="selectpicker form-control">
+		  {% for o in data %}
+		  {% if  o.stat == row['status']  %}
+		  <option value="{{ o.stat }}" selected>{{ o.status }}</option>
+		  {% else %}
+		  <option value="{{ o.stat }}">{{ o.status }}</option>
+		  {% endif %}
+		  {% endfor %}
+		</select>
+	  </p>
+	  <h2>Remarks</h2>
+	  <p>
+	   <input name="input_remarks" value="{{ row['remarks'] }}" type="text" placeholder="remarks" autocomplete="off" required>
+	  </p>
+	  <h2>Flagger</h2>
+	  <p>
+	   <input name="input_flagger" value="{{ row['flagger'] }}" type="text" placeholder="flagger" autocomplete="off" required>
+	  </p>
+		</dl>
+		<p>
+	  <input name="id" value="{{ row['stat_id'] }}" type="hidden">
+	  <input type="submit" value="Submit" class = "button" onclick = 'loading();'>
+	 </p>
+	</form>
+</body>

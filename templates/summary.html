@@ -1,0 +1,71 @@
+<doctype html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">// <![CDATA[
+			function loading(){
+				$("#loading").show();
+				$("#content").hide();       
+			}
+	// ]]>
+	</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Add icon library -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+	<title>Sensor Monitoring System - Python Flask MySQL CRUD</title>
+
+	<div id="loading"></div>
+
+	<div id="content">
+		<a href="{{ url_for('.users') }}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+		<a href="{{ url_for('.loggers_view') }}"><button class="btn"><i class="fa fa-flag"></i> Loggers</button></a>
+		<a href="{{ url_for('.view_status') }}"><button class="btn"><i class="fa fa-bars"></i> Status</button></a>
+		<a href="{{ url_for('.add_status_view') }}"><button class="btn"><i class="fa fa-plus"></i> Add Status</button></a>
+		<a href="{{ url_for('.update_in_use_view') }}"><button class="btn"><i class="fa fa-toggle-on"></i> Switch accel</button></a>
+		
+		{% if tsupdate %}
+		<h1>SHAMSY</h1> 
+		<h2>(Sensor Health Analysis and Monitoring System)</h2>
+		{% if title %}
+		<h3>{{title}}</h3>
+		{% endif %}
+		<p><a href="{{ url_for('.update_datacounter') }}" onclick = 'loading();'> Update datacounter </a></p>
+		
+		<p>
+		 {% with messages = get_flashed_messages() %}
+		   {% if messages %}
+		  <ul class=flashes>
+		  {% for message in messages %}
+			<li>{{ message }}</li>
+		  {% endfor %}
+		  </ul>
+		   {% endif %}
+		 {% endwith %}
+		</p>
+		<p>Updated as of {{tsupdate}}</p>
+		
+		{% if flag %}<h2>Accel 1</h2>{% endif %}
+		<p>
+		{{ table}}
+		</p>
+			{% if table2 %}
+				<h2>Accel 2</h2>
+				<p>
+				{{ table2}}
+				</p>
+			{% endif %}
+		{% else %}
+		
+		
+		<h1>Status</h1>
+		<p>
+		{{ table}}
+		</p>
+		{% endif %}
+		
+	</div>  
+</body>

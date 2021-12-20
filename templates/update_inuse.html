@@ -1,0 +1,68 @@
+<doctype html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">// <![CDATA[
+			function loading(){
+				$("#loading").show();
+				$("#content").hide();       
+			}
+	// ]]>
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Add icon library -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+	<title>Update in use - Python Flask MySQL CRUD</title>
+	
+	<a href="{{ url_for('.users') }}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+	<a href="{{ url_for('.loggers_view') }}"><button class="btn"><i class="fa fa-flag"></i> Loggers</button></a>
+	<a href="{{ url_for('.view_status') }}"><button class="btn"><i class="fa fa-bars"></i> Status</button></a>
+	<a href="{{ url_for('.add_status_view') }}"><button class="btn"><i class="fa fa-plus"></i> Add Status</button></a>
+	<a href="{{ url_for('.update_in_use_view') }}"><button class="btn"><i class="fa fa-toggle-on"></i> Switch accel</button></a>
+	
+	<h1>Update accel in use</h1>
+	<form method="post" action="/updating_in_use">
+		<dl>
+		
+	  <h2>TSM Name</h2>
+	  <p>
+	  <span class="input-group-addon"></span>
+		<select name="input_tsm_id" class="selectpicker form-control">
+		<option value="" selected disabled>Select TSM</option>
+		  {% for o in active_tsm %}
+		  {% if  o.tsm_id == row[0]['tsm_id']  %}
+		  <option value="{{ o.tsm_id }}" selected>{{ o.tsm_name }}</option>
+		  {% else %}
+		  <option value="{{ o.tsm_id }}">{{ o.tsm_name }}</option>
+		  {% endif %}
+		  {% endfor %}
+		</select>
+	  </p>
+	  
+	  <h2>Node ID</h2>
+	  <p>
+	   <input name="input_node_id" value="{{ row[0]['node_id'] }}" type="number" placeholder="node_id" autocomplete="off" required>
+	  </p>
+	  
+	  <h2>Accel in use</h2>
+	  <p>
+	  <span class="input-group-addon"></span>
+		<select name="input_accel_inuse" class="selectpicker form-control">
+		  {% for o in row %}
+		  {% if  o.in_use == 1  %}
+		  <option value="{{ o.accel_number }}" selected>{{ o.accel_number }}</option>
+		  {% else %}
+		  <option value="{{ o.accel_number }}">{{ o.accel_number }}</option>
+		  {% endif %}
+		  {% endfor %}
+		</select>
+	  </p>
+		</dl>
+		<p>
+	  <input type="submit" value="Submit" class = "button" onclick = 'loading();'>
+	 </p>
+	</form>
+</body>
